@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# Photoshop/Illustrator Arbeitsdateien
+*.psd
+*.ai
+
+# Temporäre Dateien
+*.JPG
+*.png
+!images/*.png
+!favicon.png

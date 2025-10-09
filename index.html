@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EA1 - Interaktiv animierte Scheibe</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>EA1 - Interaktiv animierte Scheibe</h1>
+        <p class="subtitle">Marla Reuter<br>Graphical Visualisation Technologies<br>Wintersemester 25/26</p>
+
+        <!-- Objekt 1: Nicholas (Einzelbilder-Animation) -->
+        <section class="animation-section">
+            <div class="animation-box">
+                <div class="animation-container">
+                    <img id="rotatingImage" src="images/nicholas_0.png" alt="Nicholas der Kater">
+                </div>
+
+                <div class="controls">
+                    <h3>Steuerung:</h3>
+                    <ul>
+                        <li>L = Schritt nach links rotieren</li>
+                        <li>R = Schritt nach rechts rotieren</li>
+                        <li>A = Automatisch</li>
+                    </ul>
+
+                    <div class="button-controls">
+                        <button id="btnLeft">Links</button>
+                        <button id="btnAuto">Start/Stop</button>
+                        <button id="btnRight">Rechts</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Objekt 2: Mary (Sprite-Sheet-Animation) -->
+        <section class="animation-section">
+            <div class="animation-box">
+                <div class="animation-container">
+                    <div id="marySprite"></div>
+                </div>
+
+                <div class="controls">
+                    <h3>Steuerung:</h3>
+                    <ul>
+                        <li>Z = Schritt zurück</li>
+                        <li>V = Schritt vor</li>
+                        <li>E = Automatisch</li>
+                    </ul>
+
+                    <div class="button-controls">
+                        <button id="btnMaryUp">Zurück</button>
+                        <button id="btnMaryAuto">Start/Stop</button>
+                        <button id="btnMaryDown">Vor</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="quellen">
+            <h3>Materialquellen:</h3>
+            <p>Ich habe eigenes Fotomaterial verwendet von meinem Kater Nicholas und meiner Orpington-Henne Mary. Die Bilder habe ich anschließend mit Photoshop und Illustrator bearbeitet.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

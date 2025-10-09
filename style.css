@@ -1,0 +1,177 @@
+/* Basis-Styling für EA1 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
+    background-color: #ce7838;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+h3 {
+    color: #34495e;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Animation Sections */
+.animation-section {
+    margin-bottom: 50px;
+}
+
+/* Animation Box - umschließt Container und Controls */
+.animation-box {
+    background-color: #ecf0f1;
+    border-radius: 0;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+/* Animation Container */
+.animation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    min-height: 300px;
+}
+
+#rotatingImage {
+    max-width: 350px;
+    width: 100%;
+    height: auto;
+    transition: opacity 0.1s ease;
+}
+
+/* Steuerungs-Bereich */
+.controls {
+    padding: 0;
+    margin: 0;
+}
+
+.controls ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.controls li {
+    padding: 8px 0;
+    font-size: 16px;
+}
+
+/* Buttons */
+.button-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+button {
+    background-color: #5ba8d6;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4a97c5;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#btnAuto {
+    background-color: #ce7838;
+}
+
+#btnAuto:hover {
+    background-color: #bd6a31;
+}
+
+#btnMaryAuto {
+    background-color: #ce7838;
+}
+
+#btnMaryAuto:hover {
+    background-color: #bd6a31;
+}
+
+/* Mary Sprite-Sheet Animation */
+#marySprite {
+    width: 350px;
+    height: 214px;
+    background-image: url('images/mary_spritesheet.png');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 4200px 214px;
+    margin: 0 auto;
+    display: block;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* Quellen */
+.quellen {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #ecf0f1;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.quellen p {
+    margin: 5px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    #rotatingImage {
+        max-width: 300px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
