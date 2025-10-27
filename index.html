@@ -3,69 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EA1 - Interaktiv animierte Scheibe</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
+    <title>GVT Aufgaben - Marla Reuter</title>
+    <link rel="stylesheet" href="css/general.css">
 </head>
 <body>
-    <div class="container">
-        <h1>EA1 - Interaktiv animierte Scheibe</h1>
-        <p class="subtitle">Marla Reuter<br>Graphical Visualisation Technologies<br>Wintersemester 25/26</p>
+    <div class="header">
+        <h1>Graphical Visualisation Technologies</h1>
+        <p>Marla Reuter • Matrikelnummer: 257976 • WS 2025/26</p>
+    </div>
 
-        <!-- Objekt 1: Nicholas (Einzelbilder-Animation) -->
-        <section class="animation-section">
-            <div class="animation-box">
-                <div class="animation-container">
-                    <img id="rotatingImage" src="images/nicholas_0.png" alt="Nicholas der Kater">
-                </div>
+    <div class="tabs">
+        <button class="tab active" onclick="showTab('ea1')" title="Interaktiv animierte Scheibe">EA1</button>
+        <button class="tab" onclick="showTab('ea2')" title="2D Geometrie aus Linien">EA2</button>
+    </div>
 
-                <div class="controls">
-                    <h3>Steuerung:</h3>
-                    <ul>
-                        <li>L = Schritt nach links rotieren</li>
-                        <li>R = Schritt nach rechts rotieren</li>
-                        <li>A = Automatisch</li>
-                    </ul>
-
-                    <div class="button-controls">
-                        <button id="btnLeft">Links</button>
-                        <button id="btnAuto">Start/Stop</button>
-                        <button id="btnRight">Rechts</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Objekt 2: Mary (Sprite-Sheet-Animation) -->
-        <section class="animation-section">
-            <div class="animation-box">
-                <div class="animation-container">
-                    <div id="marySprite"></div>
-                </div>
-
-                <div class="controls">
-                    <h3>Steuerung:</h3>
-                    <ul>
-                        <li>Z = Schritt zurück</li>
-                        <li>V = Schritt vor</li>
-                        <li>E = Automatisch</li>
-                    </ul>
-
-                    <div class="button-controls">
-                        <button id="btnMaryUp">Zurück</button>
-                        <button id="btnMaryAuto">Start/Stop</button>
-                        <button id="btnMaryDown">Vor</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="quellen">
-            <h3>Materialquellen:</h3>
-            <p>Ich habe eigenes Fotomaterial verwendet von meinem Kater Nicholas und meiner Orpington-Henne Mary. Die Bilder habe ich anschließend mit Photoshop und Illustrator bearbeitet.</p>
+    <div class="content">
+        <div id="ea1" class="tab-content active">
+            <iframe src="EA1/index.html"></iframe>
+        </div>
+        <div id="ea2" class="tab-content">
+            <iframe src="EA2/index.html"></iframe>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function showTab(tabName) {
+            var tabs = document.querySelectorAll('.tab');
+            var contents = document.querySelectorAll('.tab-content');
+
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
+
+            document.getElementById(tabName).classList.add('active');
+
+            // Tab-Button aktivieren
+            var buttons = document.querySelectorAll('.tab');
+            for (var i = 0; i < buttons.length; i++) {
+                if (buttons[i].onclick.toString().includes(tabName)) {
+                    buttons[i].classList.add('active');
+                }
+            }
+        }
+
+        // Beim Laden: URL-Parameter auslesen
+        window.addEventListener('load', function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var tab = urlParams.get('tab');
+
+            if (tab && document.getElementById(tab)) {
+                showTab(tab);
+            }
+        });
+    </script>
 </body>
 </html>

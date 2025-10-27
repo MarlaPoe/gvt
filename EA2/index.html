@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EA2 - Nairobi 2D Geometrie | Marla Reuter</title>
+    <link rel="stylesheet" href="../css/general.css">
+</head>
+<body>
+    <div class="container">
+        <h1>2D Geometrie aus Linien</h1>
+
+        <canvas id="canvas" width="800" height="800"></canvas>
+
+        <div class="quellen">
+            <h3>Materialquellen:</h3>
+            <p>Ich habe eigenes Fotomaterial verwendet von meinem Pferd Nairobi, das ich dann in Illustrator abgepaust habe.</p>
+        </div>
+    </div>
+
+    <!-- START EA2 -->
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute vec2 aPosition;
+
+        void main() {
+            gl_Position = vec4(aPosition, 0.0, 1.0);
+        }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+
+        void main() {
+            gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); // Schwarz
+        }
+    </script>
+
+    <script src="ea2.js"></script>
+    <!-- END EA2 -->
+</body>
+</html>

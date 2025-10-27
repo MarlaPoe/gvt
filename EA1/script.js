@@ -1,4 +1,5 @@
 // START EA1: Interaktiv animierte Scheibe
+"use strict";
 var currentFrame = 0;
 var totalFrames = 24;
 var autoRotating = false;
