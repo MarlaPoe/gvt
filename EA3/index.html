@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EA3 - Nairobi Farbig gefüllte 2D Geometrie | Marla Reuter</title>
+    <link rel="stylesheet" href="../css/general.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Farbig gefüllte 2D Geometrie</h1>
+
+        <canvas id="canvas" width="800" height="800"></canvas>
+
+        <div class="quellen">
+            <h3>Materialquellen:</h3>
+            <p>Ich habe die Grafik aus Aufgabe 2 genommen und diese in Illustrator mit Dreiecken gefüllt.</p>
+        </div>
+    </div>
+
+    <!-- START EA3 -->
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute vec2 aPosition;
+        attribute vec3 aColor;
+        varying vec3 vColor;
+
+        void main() {
+            gl_Position = vec4(aPosition, 0.0, 1.0);
+            vColor = aColor;
+        }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+        varying vec3 vColor;
+
+        void main() {
+            gl_FragColor = vec4(vColor, 1.0);
+        }
+    </script>
+
+    <script src="ea3.js"></script>    
+    <!-- END EA3 -->
+</body>
+</html>
