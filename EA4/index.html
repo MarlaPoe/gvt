@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EA4 - Parametrisierte Flächen | Marla Reuter</title>
+    <link rel="stylesheet" href="../css/general.css">
+    <style>
+        .surface-container {
+            margin-bottom: 40px;
+        }
+
+        .surface-container h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        canvas {
+            display: block;
+            margin: 15px auto;
+            background: #ecf0f1;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        button {
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-fill {
+            background-color: #5ba8d6;
+        }
+
+        .btn-fill:hover {
+            background-color: #4a97c5;
+        }
+
+        .btn-wire {
+            background-color: #ce7838;
+        }
+
+        .btn-wire:hover {
+            background-color: #bd6a31;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Parametrisierte Flächen</h1>
+
+        <!-- Pillow Shape -->
+        <div class="surface-container">
+            <h2>1. Pillow Shape</h2>
+            <div class="formula">
+                x = cos(u)<br>
+                y = cos(v)<br>
+                z = a · sin(u) · sin(v)<br>
+                <br>
+                u ∈ [0, π], v ∈ [-π, π]
+            </div>
+            <canvas id="pillowCanvas" width="800" height="800"></canvas>
+            <div class="controls">
+                <button id="togglePillowFill" class="btn-fill">Füllung - an/aus</button>
+                <button id="togglePillowWire" class="btn-wire">Gitter - an/aus</button>
+            </div>
+        </div>
+
+        <!-- Möbius Band -->
+        <div class="surface-container">
+            <h2>2. Möbius Band</h2>
+            <div class="formula">
+                x = [R + s·cos(t/2)]·cos(t)<br>
+                y = [R + s·cos(t/2)]·sin(t)<br>
+                z = s·sin(t/2)<br>
+                <br>
+                s ∈ [-w, w], t ∈ [0, 2π]
+            </div>
+            <canvas id="moebiusCanvas" width="800" height="800"></canvas>
+            <div class="controls">
+                <button id="toggleMoebiusFill" class="btn-fill">Füllung - an/aus</button>
+                <button id="toggleMoebiusWire" class="btn-wire">Gitter - an/aus</button>
+            </div>
+        </div>
+
+        <!-- Toruskissen (Eigene Parametrisierung) -->
+        <div class="surface-container">
+            <h2>3. Toruskissen (Eigene Parametrisierung)</h2>
+            <div class="formula">
+                x = [R + r·cos(v)]·cos(u)<br>
+                y = [R + r·cos(v)]·sin(u)<br>
+                z = r·sin(v) + a·sin(u)·sin(v)<br>
+                <br>
+                u, v ∈ [0, 2π]<br>
+                <br>
+                <em>(Kombination: Torus-Grundform + Pillow-Shape Ausbeulung)</em>
+            </div>
+            <canvas id="twistedCanvas" width="800" height="800"></canvas>
+            <div class="controls">
+                <button id="toggleTwistedFill" class="btn-fill">Füllung - an/aus</button>
+                <button id="toggleTwistedWire" class="btn-wire">Gitter - an/aus</button>
+            </div>
+        </div>
+
+        <div class="quellen">
+            <h3>Materialquellen:</h3>
+            <p><strong>Pillow Shape:</strong> <a href="http://www.3d-meier.de/tut3/Seite46.html" target="_blank">http://www.3d-meier.de/tut3/Seite46.html</a></p>
+            <p><strong>Möbius Band:</strong> <a href="http://www.3d-meier.de/tut3/Seite13.html" target="_blank">http://www.3d-meier.de/tut3/Seite13.html</a></p>
+            <p><strong>Toruskissen:</strong> <a href="http://www.3d-meier.de/tut3/Seite58.html" target="_blank">http://www.3d-meier.de/tut3/Seite58.html</a>, kombiniert mit Pillow-Shape Ausbeulung</p>
+        </div>
+    </div>
+
+    <!-- START EA4 -->
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute vec3 aPosition;
+        attribute vec3 aColor;
+        varying vec3 vColor;
+        uniform mat4 uRotation;
+
+        void main() {
+            gl_Position = uRotation * vec4(aPosition, 1.0);
+            vColor = aColor;
+        }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+        varying vec3 vColor;
+        uniform float uUseBlack;
+
+        void main() {
+            if (uUseBlack > 0.5) {
+                gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+            } else {
+                gl_FragColor = vec4(vColor, 1.0);
+            }
+        }
+    </script>
+
+    <script src="ea4.js"></script>
+    <!-- END EA4 -->
+</body>
+</html>
