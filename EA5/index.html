@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EA5 - Kamerabewegung</title>
+    <link rel="stylesheet" href="../css/general.css">
+    <style>
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            margin: 0 auto 20px auto;
+        }
+
+        .control-box {
+            background-color: #ecf0f1;
+            border-radius: 0;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        .control-box h3 {
+            margin-top: 0;
+        }
+
+        .control-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 20px 0;
+        }
+
+        .control-box li {
+            padding: 8px 0;
+            font-size: 16px;
+        }
+
+        .button-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .button-controls span {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- START EA5 -->
+    <div class="container">
+        <h1>Kamerabewegung</h1>
+
+        <canvas id="canvas" width="800" height="800"></canvas>
+
+        <div class="control-box">
+            <h3>Steuerung:</h3>
+            <ul>
+                <li>Pfeiltaste Links/Rechts = Kamera um die Szene kreisen</li>
+                <li>N = Kamera-Radius vergrößern</li>
+                <li>Shift+N = Kamera-Radius verkleinern</li>
+            </ul>
+
+            <div class="button-controls">
+                <strong>Rekursionstiefe:</strong>
+                <button id="btnDecrease">−</button>
+                <span id="depthDisplay">2</span>
+                <button id="btnIncrease">+</button>
+                <button id="btnToggleLines">Linien umschalten</button>
+            </div>
+        </div>
+
+        <div class="quellen">
+            <h3>Materialquellen:</h3>
+            <p>Grundkörper und Kugel: Kapitel 9 des Skripts</p>
+            <p>Kamera und Perspektive: Kapitel 10 des Skripts</p>
+            <p>Matrix-Berechnungen: glMatrix 2.8.1 - JavaScript Matrix/Vector Library</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
+
+    <script type="x-shader/x-vertex" id="vertexshader">
+        attribute vec3 aPosition;
+        attribute vec3 aNormal;
+        attribute vec3 aColor;
+
+        uniform mat4 uPMatrix;
+        uniform mat4 uMVMatrix;
+
+        varying vec4 vColor;
+        varying vec3 vNormal;
+
+        void main() {
+            gl_Position = uPMatrix * uMVMatrix * vec4(aPosition, 1.0);
+
+            vNormal = aNormal;
+            vColor = vec4(aColor, 1.0);
+        }
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentshader">
+        precision mediump float;
+        varying vec4 vColor;
+        varying vec3 vNormal;
+
+        void main() {
+            // Einfache Schattierung basierend auf Z-Normale
+            float shade = (vNormal.z + 1.0) * 0.3 + 0.4;
+            gl_FragColor = vec4(vColor.rgb * shade, 1.0);
+        }
+    </script>
+
+    <script src="ea5.js"></script>
+    <!-- END EA5 -->
+</body>
+</html>
