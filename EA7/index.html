@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EA7 - Z-Buffer Visualisierung</title>
+    <link rel="stylesheet" href="../css/general.css">
+    <style>
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            margin: 0 auto 20px auto;
+        }
+
+        .control-box {
+            background-color: #ecf0f1;
+            border-radius: 0;
+            padding: 20px;
+            margin: 0 auto 20px auto;
+            max-width: 800px;
+        }
+
+        .control-box h3 {
+            margin-top: 0;
+        }
+
+        .control-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 20px 0;
+        }
+
+        .control-box li {
+            padding: 8px 0;
+            font-size: 16px;
+        }
+
+        .button-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- START EA7 -->
+    <div class="container">
+        <h1>Z-Buffer Visualisierung</h1>
+
+        <canvas id="canvas" width="800" height="600"></canvas>
+
+        <div class="control-box">
+            <div class="button-controls">
+                <button id="resetCamera">Kamera zurücksetzen</button>
+            </div>
+
+            <h3>Steuerung:</h3>
+            <ul>
+                <li>WASD = Bewegung in XY-Ebene</li>
+                <li>Pfeiltasten = Drehung der Szene</li>
+            </ul>
+        </div>
+
+        <div class="quellen">
+            <h3>Materialquellen:</h3>
+            <p>Grundkörper: Kapitel 9 und 11 des Skripts</p>
+            <p>Kamera und Perspektive: Kapitel 10 des Skripts</p>
+            <p>Shader und Z-Buffer: Kapitel 12 des Skripts</p>
+            <p>Matrix-Berechnungen: glMatrix 2.8.1 - JavaScript Matrix/Vector Library</p>
+        </div>
+    </div>
+
+    <!-- Shader -->
+    <script type="x-shader/x-vertex" id="vertexshader">
+        attribute vec3 aPosition;
+
+        uniform mat4 uPMatrix;
+        uniform mat4 uMVMatrix;
+
+        void main() {
+            gl_Position = uPMatrix * uMVMatrix * vec4(aPosition, 1.0);
+        }
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentshader">
+        precision mediump float;
+
+        void main() {
+            float depth = gl_FragCoord.z;
+            gl_FragColor = vec4(depth, depth, depth, 1.0);
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
+    <script src="GVT_Src_vertexData_torus.js"></script>
+    <script src="GVT_Src_vertexData_sphere.js"></script>
+    <script src="GVT_Src_vertexData_plane.js"></script>
+    <script src="GVT_Src_vertexData_box.js"></script>
+    <script src="ea7.js"></script>
+    <!-- END EA7 -->
+</body>
+</html>
